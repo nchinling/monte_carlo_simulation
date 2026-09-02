@@ -11,13 +11,17 @@ print(f"Downloading data for {ticker}...")
 # so mu/sigma below are scalars rather than length-1 pandas Series.
 data = yf.download(ticker, start='2024-08-31', end='2026-08-31',
                    auto_adjust=True)['Close'].squeeze()
+print(f"Ticker Name: {ticker}\n{data}")
 
 # 2. Calculate daily returns and statistics
 # pct_change() calculates the daily percentage gain/loss
 returns = data.pct_change().dropna()
+print(f"{ticker} % returns\n{returns}")
 
 mu = returns.mean()  # Average daily return (Drift)
 sigma = returns.std() # Daily volatility (Risk)
+print(f"Average returns: {mu} %")
+print(f"Daily volatility: {sigma}")
 
 # 3. Monte Carlo Setup
 simulations = 1000 # Number of alternate realities we want to simulate
